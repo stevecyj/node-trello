@@ -11,7 +11,7 @@ const routes = async (req, res) => {
     body += chunk;
   });
   if (url === '/posts' && method === 'GET') {
-    PostController.getPosts({ req, res });
+    PostController.getCards({ req, res });
   } else if (url === '/posts' && method === 'POST') {
     req.on('end', () => PostController.createPosts({ req, res, body }));
   } else if (url === '/posts' && method === 'DELETE') {

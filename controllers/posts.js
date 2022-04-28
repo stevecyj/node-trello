@@ -3,7 +3,35 @@ const handleError = require('../service/handleError');
 const handleLocalDate = require('../service/handleLocalDate');
 const Posts = require('../model/posts');
 
+const _ = require('lodash');
+const fs = require('fs');
+
 const posts = {
+  async getCards({ req, res }) {
+    const item = fs.readFile('./assets/9wmu2tw6.json', 'utf8', (err, data) => {
+      if (err) {
+        console.log(err);
+        return;
+      }
+
+      let objData = JSON.parse(data);
+      let trelloCARDS = objData.cards;
+      let monthCARDS = _.groupBy(
+        trelloCARDS,
+        ({ dateLastActivity }) => new Date(Date.parse(dateLastActivity)).getMonth() + 1
+      );
+      // console.log(monthCARDS);
+      // console.log(Object.values(monthCARDS));
+      // console.log(Object.entries(monthCARDS));
+      const result = Object.entries(monthCARDS).map(([month, cards]) => {
+        // console.log(cards);
+        return { month, nums: cards.length, cards };
+      });
+      console.log(result);
+      handleSuccess(res, result);
+    });
+    console.log(item);
+  },
   async getPosts({ req, res }) {
     const allPosts = await Posts.find();
     handleSuccess(res, allPosts);

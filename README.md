@@ -1,18 +1,5 @@
-# node-week2
+# node-trello
 
 ## module
 
-- connections
-- controllers
-- model
-- route
-- service
-- app
-
-## structure
-
-![structure](assets/structure.png)
-
-## simile
-
-![simile](assets/simile.png)
+- get cards groupBy month
